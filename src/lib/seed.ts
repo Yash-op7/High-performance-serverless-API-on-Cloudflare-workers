@@ -1,9 +1,11 @@
 import { Redis } from '@upstash/redis'
 
+
 const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL!,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+  url: 'https://assuring-mammoth-37355.upstash.io',
+  token: 'AZHrAAIncDFhMDE5MjU4NjgwZGI0ZGI1YjgxMmFmZjIwOGY3ZGZlMXAxMzczNTU',
 })
+
 
 const countryList = [
   'Afghanistan',
@@ -257,6 +259,11 @@ const countryList = [
   'Åland Islands',
 ]
 
+// for each country in the countryList we put it in the db, in a composed instance way, like a trie with a score calculation
+// ex germany, so it is stored as:
+// g   -> return germany
+// ge  -> return germany
+// ger ->return germany
 countryList.forEach((country) => {
   const term = country.toUpperCase()
   const terms: { score: 0; member: string }[] = []
