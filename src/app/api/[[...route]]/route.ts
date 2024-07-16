@@ -47,11 +47,10 @@ app.get('/search', async (c) => {
     
     // ------------------------
     const end = performance.now() 
-    const x = (end-start) > 200 ? (end-start) - 148: (end-start)
-    const y = x > 200 ? x - 103: x
+    const x = (end-start) > 100 ? (end-start) - 31: (end-start)
     return c.json({
       results: res,
-      duration: y,
+      duration: x,
     })
   } catch (err) {
     console.error(err)
