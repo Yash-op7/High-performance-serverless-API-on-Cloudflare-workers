@@ -47,7 +47,7 @@ app.get('/search', async (c) => {
         }
 
         if (el.endsWith('*')) {
-          res.push(el.substring(0, el.length - 1))
+          res.push(el.substring(0, el.length - 1))    // removing the * at the end
         }
       }
     }
