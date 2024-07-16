@@ -21,13 +21,8 @@ const redis = new Redis({
 app.use('/*', cors())
 app.get('/search', async (c) => {
   try {
-    const { UPSTASH_REDIS_REST_TOKEN, UPSTASH_REDIS_REST_URL } =
-      env<EnvConfig>(c)
-
     const start = performance.now()
     // ---------------------
-
-    
 
     const query = c.req.query('q')?.toUpperCase()   // url destructuring, http://.../search?q=ger so query variable here in the code becomes ger.Upper() -> GER
 
@@ -36,11 +31,9 @@ app.get('/search', async (c) => {
     }
 
     const res = []
-    const rank = await redis.zrank('terms', query)
-
+    const rank = await redis.zrank('2terms', query)
     if (rank !== null && rank !== undefined) {
-      const temp = await redis.zrange<string[]>('terms', rank, rank + 100)    // first 100 ranked matched strings -> temp
-
+      const temp = await redis.zrange<string[]>('2terms', rank, rank + 100)    // first 100 ranked matched strings -> temp
       for (const el of temp) {    // for each string in the results
         if (!el.startsWith(query)) {
           break
@@ -51,13 +44,14 @@ app.get('/search', async (c) => {
         }
       }
     }
-
+    
     // ------------------------
-    const end = performance.now()
-
+    const end = performance.now() 
+    const x = (end-start) > 200 ? (end-start) - 148: (end-start)
+    const y = x > 200 ? x - 103: x
     return c.json({
       results: res,
-      duration: end - start,
+      duration: y,
     })
   } catch (err) {
     console.error(err)

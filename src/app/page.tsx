@@ -29,6 +29,7 @@ export default function Home() {
     }
 
     fetchData()
+    console.log(searchResults)
   }, [input])
 
   return (
