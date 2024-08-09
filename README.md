@@ -1,4 +1,4 @@
-Globally distributed high-performance API using:
+Built a globally distributed high-performance API using:
 
 - Cloudflare Workers
 - HonoJS
